@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Local experiment products that may contain machine paths or API traces.
+measurements/raw/
+measurements/work_dirs/
+*.log
+*.tmp
+
+# Local editor and OS files.
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Do not commit secrets.
+.env
+.env.*
+*.key
+*.pem
