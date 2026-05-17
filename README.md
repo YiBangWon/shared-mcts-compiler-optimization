@@ -8,6 +8,10 @@ This repository is intended for a graduate course project, not for claiming a fu
 
 Shared-MCTS multi-model search improved latency on 2 out of 3 scaled-down Reasoning-Compiler-family TVM workloads, but did not reduce strong-model calls. The result supports selected-workload latency improvement, not cost saving.
 
+## Keywords
+
+TVM, tensor program optimization, LLM-guided compiler search, Monte Carlo Tree Search, multi-model routing, model-serving optimization, deep learning compiler
+
 ## Overview
 
 TVM tensor program optimization has a large schedule transformation search space. Transformations such as tiling, fusion, vectorization, layout changes, and unrolling are highly interdependent, so finding a good schedule can require many compile-and-measure samples.
