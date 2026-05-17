@@ -90,8 +90,6 @@ Aggregate result:
 
 ![Speedup over Reasoning Compiler baseline](figures/speedup_by_operator.png)
 
-![Strong-model call comparison](figures/llm_usage_by_operator.png)
-
 ## Interpretation
 
 The shared-MCTS multi-model search improved median latency on 2 out of 3 scaled-down Reasoning-Compiler-family workloads. It achieved 6.76% improvement on the FLUX-style convolution workload and 4.41% improvement on the Llama-style attention workload.
