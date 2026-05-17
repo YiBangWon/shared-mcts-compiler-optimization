@@ -98,20 +98,6 @@ However, it was 3.63% slower on the Llama-style MLP workload. Therefore, the res
 
 The experiment did not reduce strong-model calls. Therefore, this repository does not claim cost saving or strong-model call reduction.
 
-## Safe Claims
-
-This repository supports the following claim:
-
-> On three scaled-down Reasoning-Compiler-family TVM workloads under matched LLVM CPU conditions, shared-MCTS multi-model search improved median latency on 2 out of 3 workloads, achieving 1.0268x geomean speedup over the official Reasoning Compiler baseline.
-
-This repository does not claim:
-
-- full benchmark reproduction,
-- universal improvement,
-- GPU improvement,
-- strong-model call reduction,
-- cost saving.
-
 ## Repository Structure
 
 ```text
