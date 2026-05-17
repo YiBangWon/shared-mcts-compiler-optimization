@@ -14,11 +14,7 @@ TVM, tensor program optimization, LLM-guided compiler search, Monte Carlo Tree S
 
 ## Overview
 
-TVM tensor program optimization has a large schedule transformation search space. Transformations such as tiling, fusion, vectorization, layout changes, and unrolling are highly interdependent, so finding a good schedule can require many compile-and-measure samples.
-
-Reasoning Compiler improves this problem by formulating compiler optimization as a sequential, context-aware decision process guided by an LLM and structured Monte Carlo Tree Search (MCTS). However, a single-model LLM-guided search still has a model-selection limitation: a stronger model may produce better proposals but can increase cost, while a smaller model may be cheaper but less capable.
-
-This project explores a shared-MCTS search direction where multiple models use the same search tree. At each step, the search can choose both a compiler transformation and the next model to query. The goal is to obtain a better search trajectory and improve latency on TVM tensor workloads.
+This repository evaluates a shared-MCTS multi-model compiler-search strategy for TVM tensor programs. The study compares it against the official Reasoning Compiler implementation on scaled-down model-serving workloads under matched experimental settings.
 
 ## Method
 
