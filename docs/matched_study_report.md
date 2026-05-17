@@ -32,7 +32,7 @@ Both methods used:
 - same tensor shape,
 - same LLVM CPU target,
 - same trial budget,
-- same LLM budget,
+- same total LLM call budget per tuning run,
 - same seeds,
 - same latency measurement harness,
 - separate verified TVM imports.
@@ -42,7 +42,7 @@ The validation setting was:
 - target: `llvm --num-cores=1`
 - seeds: `0, 1, 2, 3, 4`
 - trials: `32`
-- LLM budget: `4`
+- LLM budget: `4` total calls per tuning run, not per MetaSchedule trial
 - cost model: `xgb`
 
 ## 5. Results

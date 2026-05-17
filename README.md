@@ -58,7 +58,7 @@ The main experiment compares the official Reasoning Compiler implementation agai
 | Target | LLVM CPU |
 | Seeds | `0, 1, 2, 3, 4` |
 | Trials | `32` |
-| LLM budget | `4` |
+| LLM budget | `4` total LLM calls per tuning run, not per MetaSchedule trial |
 | Comparison | Same workload, shape, target, trials, LLM budget, seeds, and measurement harness |
 | Baseline | Official Reasoning Compiler implementation |
 | Proposed method | Shared-MCTS / multi-model search |
@@ -66,7 +66,7 @@ The main experiment compares the official Reasoning Compiler implementation agai
 
 ## Results
 
-All results are based on matched LLVM CPU experiments with five seeds, 32 trials, and LLM budget 4.
+All results are based on matched LLVM CPU experiments with five seeds, 32 trials, and a total LLM budget of 4 calls per tuning run.
 
 | Workload | Reasoning Compiler median latency | Shared-MCTS median latency | Improvement |
 |---|---:|---:|---:|
@@ -83,6 +83,16 @@ Aggregate result:
 | Median latency improvement | `4.414%` |
 | Strong-model call reduction | `0%` |
 | Cost-saving claim | Not supported |
+
+### Figures
+
+![Median latency comparison](figures/latency_by_operator.png)
+
+![Speedup over Reasoning Compiler baseline](figures/speedup_by_operator.png)
+
+![Strong-model call comparison](figures/llm_usage_by_operator.png)
+
+![Latency versus strong-model calls](figures/latency_vs_strong_calls.png)
 
 ## Interpretation
 
@@ -125,9 +135,12 @@ This repository does not claim:
 |   +-- validated_summary.csv
 +-- figures/
 +-- docs/
-    +-- operator_family_map.md
-    +-- matched_study_report.md
-    +-- korean_project_note.md
+|   +-- operator_family_map.md
+|   +-- matched_study_report.md
+|   +-- korean_project_note.md
++-- requirements.txt
++-- LICENSE
++-- README.md
 ```
 
 ## Reproduction
@@ -136,6 +149,8 @@ The scripts expect two separate TVM environments:
 
 - `BASELINE_TVM_HOME`: official Reasoning Compiler TVM source tree
 - `COORDINATED_TVM_HOME`: shared-MCTS multi-model TVM source tree
+
+`requirements.txt` only contains local plotting and result-processing dependencies. TVM and the two compiler-search implementations must be built separately.
 
 Example:
 
