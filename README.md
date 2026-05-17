@@ -2,6 +2,8 @@
 
 This repository contains a course-scale project on shared-MCTS multi-model compiler optimization for TVM tensor programs. It extends the Reasoning Compiler direction with coordinated model selection during search.
 
+This repository is intended for a graduate course project, not for claiming a full paper-scale reproduction.
+
 ## Key Takeaway
 
 Shared-MCTS multi-model search improved latency on 2 out of 3 scaled-down Reasoning-Compiler-family TVM workloads, but did not reduce strong-model calls. The result supports selected-workload latency improvement, not cost saving.
@@ -63,6 +65,8 @@ The main experiment compares the official Reasoning Compiler implementation agai
 | TVM import | Verified separately for both implementations |
 
 ## Results
+
+All results are based on matched LLVM CPU experiments with five seeds, 32 trials, and LLM budget 4.
 
 | Workload | Reasoning Compiler median latency | Shared-MCTS median latency | Improvement |
 |---|---:|---:|---:|
@@ -136,14 +140,34 @@ The scripts expect two separate TVM environments:
 Example:
 
 ```bash
+pip install -r requirements.txt
+
 export CUDA_VISIBLE_DEVICES=0
 export BASELINE_TVM_HOME=/path/to/reasoning-compiler
 export COORDINATED_TVM_HOME=/path/to/shared-mcts-tvm
+
+TVM_HOME=$BASELINE_TVM_HOME \
+PYTHONPATH=$BASELINE_TVM_HOME/python:$PYTHONPATH \
+LD_LIBRARY_PATH=$BASELINE_TVM_HOME/build:$LD_LIBRARY_PATH \
+TVM_LIBRARY_PATH=$BASELINE_TVM_HOME/build/libtvm.so \
+python3 -c "import tvm; print(tvm.__version__, tvm.__file__)"
+
+TVM_HOME=$COORDINATED_TVM_HOME \
+PYTHONPATH=$COORDINATED_TVM_HOME/python:$PYTHONPATH \
+LD_LIBRARY_PATH=$COORDINATED_TVM_HOME/build:$LD_LIBRARY_PATH \
+TVM_LIBRARY_PATH=$COORDINATED_TVM_HOME/build/libtvm.so \
+python3 -c "import tvm; print(tvm.__version__, tvm.__file__)"
 
 bash bin/run_validation_matrix.sh
 python3 bin/aggregate_measurements.py
 python3 bin/render_figures.py
 ```
+
+For more details, see:
+
+- `docs/operator_family_map.md`
+- `docs/matched_study_report.md`
+- `docs/korean_project_note.md`
 
 API keys are not stored in this repository. All latency numbers should be interpreted as course-scale experimental results, not full paper-scale reproduction results.
 
