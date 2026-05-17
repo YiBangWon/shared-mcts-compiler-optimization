@@ -20,6 +20,20 @@ Reasoning Compiler improves this problem by formulating compiler optimization as
 
 This project explores a shared-MCTS search direction where multiple models use the same search tree. At each step, the search can choose both a compiler transformation and the next model to query. The goal is to obtain a better search trajectory and improve latency on TVM tensor workloads.
 
+## Method
+
+The project starts from a compiler-search problem in TVM. Tensor programs have a large schedule transformation space, and choices such as tiling, fusion, vectorization, layout changes, unrolling, and parallelization are highly interdependent. A schedule choice that works well after one transformation may be poor after another, so compiler search can require many compile-and-measure samples.
+
+Reasoning Compiler addresses this by using an LLM-guided MCTS search process. The LLM proposes schedule transformations from the current program state, transformation history, and performance feedback, while MCTS balances exploration and exploitation. The remaining limitation is model selection: a single strong model can provide better proposals but may be costly, while a smaller model can be cheaper but less reliable. A fixed single-model policy also cannot adapt model choice to the current search state.
+
+This project evaluates a shared-MCTS multi-model search direction:
+
+1. Use one shared MCTS tree across model calls so search history, failed candidates, and high-value schedules are reused.
+2. Treat model choice as part of the search process rather than a fixed external setting.
+3. Compare the resulting schedules against the official Reasoning Compiler baseline under matched workload, target, seed, trial budget, LLM budget, and measurement settings.
+
+The intended improvement is in the compiler search process, not in the tensor operator definition or model accuracy. The evaluation checks whether the shared-search strategy changes the discovered TVM schedules and final measured latency.
+
 ## Reference
 
 - REASONING COMPILER: LLM-Guided Optimizations for Efficient Model Serving
